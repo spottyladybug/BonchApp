@@ -28,18 +28,16 @@ final class timetable extends Base
     public function edit()
     {
         global $_BOTH;
-        if ($this->user->hasPermission('study/timetable', 'edit')) {
-            $lecture_hall = $_BOTH['lecture_hall'];
-            $date = date('Y-m-d', strtotime($_BOTH['day']));
-            $group_id = $this->user->get('study_group_id');
-            $lesson_number = $_BOTH['lesson_number'];
+        $lecture_hall = $_BOTH['lecture_hall'];
+        $date = date('Y-m-d', strtotime($_BOTH['day']));
+        $group_id = $this->user->get('study_group_id');
+        $lesson_number = $_BOTH['lesson_number'];
 
-            if (isset($_BOTH['edit'],$date)) {
-                $this->db->query("INSERT INTO timetable (lecture_hall, lecture_hall_changed) 
+        if (isset($_BOTH['edit'], $date)) {
+            $this->db->query("INSERT INTO timetable (lecture_hall, `changed`) 
                                       VALUES ($lecture_hall, 1) 
                                       WHERE lesson_number = '$lesson_number', 
                                       `date` = '$date', academical_group = '$group_id'");
-            }
         }
     }
 
